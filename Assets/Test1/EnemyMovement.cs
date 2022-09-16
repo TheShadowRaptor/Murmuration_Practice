@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
-    private GameObject dest;
+    public GameObject dest;
+    public GameObject enemyHead;
 
     public float speed;
 
@@ -15,24 +16,16 @@ public class EnemyMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         dest = GameObject.Find("Dest");
+        enemyHead = GameObject.Find("EnemyHead");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Look();
         Move();
     }
 
-    private void Look()
-    {
-        transform.up = dest.transform.position - transform.position;
-    }
-
-    private void Move()
-    {
-        rb.velocity = transform.up * speed;
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -40,5 +33,9 @@ public class EnemyMovement : MonoBehaviour
         {
             Debug.Log("touching");
         }
+    }
+    protected void Move()
+    {
+        rb.AddForce(transform.up * speed);
     }
 }

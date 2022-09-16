@@ -100,7 +100,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a31b82e67fadd4fb057edb0231d2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dest: {fileID: 6890435110249172334, guid: 7fbec377d1ac16d4ea8bcd36a529d318, type: 3}
+  enemyHead: {fileID: 0}
   speed: 5
 --- !u!58 &5604155360891782946
 CircleCollider2D:

@@ -7,7 +7,7 @@ public class MousePosition : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     private GameObject dest;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         dest = GameObject.Find("Dest");
     }
