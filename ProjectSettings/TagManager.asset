@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Dest
   - EnemyHead
+  - Leader
   layers:
   - Default
   - TransparentFX
