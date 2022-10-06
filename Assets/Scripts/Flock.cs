@@ -7,7 +7,6 @@ public class Flock : MonoBehaviour
     public FlockAgent agentPrefab;
     public FlockLeader leaderPrefab;
     List<FlockAgent> agents = new List<FlockAgent>();
-    List<FlockLeader> leaders = new List<FlockLeader>();
     public FlockBehavior behavior;
 
     [Range(10, 500)]
@@ -47,16 +46,7 @@ public class Flock : MonoBehaviour
                 );
             newAgent.name = "Agent " + i;
             agents.Add(newAgent);
-        }
-
-        for (int i = 0; i < leaderStartingCount; i++)
-        {
-            FlockAgent newLeaderAgent = Instantiate(leaderPrefab, Random.insideUnitCircle * leaderStartingCount * AgentDensity,
-                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)),
-                transform);
-            newLeaderAgent.name = "LeaderAgent " + i;
-            agents.Add(newLeaderAgent);
-        }
+        }        
     }
 
     // Update is called once per frame
@@ -76,23 +66,7 @@ public class Flock : MonoBehaviour
                 move = move.normalized * maxSpeed;
             }
             agent.Move(move);
-        }
-        foreach (FlockLeader leader in leaders)
-        {
-            List<Transform> context = GetNearbyObjectsLeader(leader);
-
-            //FOR DEMO ONLY
-            //agent.GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, Color.red, context.Count / 6f);
-
-            Vector2 move = behavior.CalculateMove(leader, context, this);
-            move *= driveFactor;
-            if (move.sqrMagnitude > squareMaxSpeed)
-            {
-                move = move.normalized * maxSpeed;
-            }
-            leader.Move(move);
-        }
-
+        }     
     }
 
     List<Transform> GetNearbyObjects(FlockAgent agent)
@@ -102,20 +76,6 @@ public class Flock : MonoBehaviour
         foreach (Collider2D c in contextColliders)
         {
             if (c != agent.AgentCollider)
-            {
-                context.Add(c.transform);
-            }
-        }
-        return context;
-    }
-
-    List<Transform> GetNearbyObjectsLeader(FlockLeader leader)
-    {
-        List<Transform> context = new List<Transform>();
-        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(leader.transform.position, neighborRadius);
-        foreach (Collider2D c in contextColliders)
-        {
-            if (c != leader.AgentCollider)
             {
                 context.Add(c.transform);
             }
